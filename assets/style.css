@@ -1,0 +1,155 @@
+/* leodorna — one stylesheet for the whole site. No framework, no build step.
+   Tokens follow the Leodorna design system (paper, ink, red; Archivo; square corners). */
+
+@font-face {
+  font-family: "Archivo";
+  src: url("fonts/archivo.woff2") format("woff2");
+  font-weight: 400 700;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Archivo Black";
+  src: url("fonts/archivo-black.woff2") format("woff2");
+  font-display: swap;
+}
+
+:root {
+  --paper: #F2EDE3;
+  --paper-raised: #E8E1D3;
+  --line: #D6CDBC;
+  --ink: #111111;
+  --ink-muted: #5E574D;
+  --red: #D2261E;
+  --red-deep: #A81C15;
+  --yellow: #F2B705;
+  --blue: #1F4E9C;
+  --display: "Archivo Black", "Archivo", system-ui, sans-serif;
+  --body: "Archivo", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  color-scheme: light; /* always light: no dark mode */
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font: 400 1.0625rem/1.6 var(--body);
+}
+
+/* The page: one readable column, left-aligned like a hand-made homepage. */
+.page {
+  max-width: 42rem;
+  margin: 0 auto;
+  padding: 2rem 1rem 3rem;
+  position: relative;
+}
+
+a { color: var(--red-deep); text-decoration: underline; text-underline-offset: 0.15em; }
+a:hover { color: var(--ink); }
+a:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+
+h1, h2, h3 { font-family: var(--display); font-weight: 400; letter-spacing: -0.02em; line-height: 1.15; }
+h1 { font-size: clamp(1.6rem, 7vw, 2.25rem); margin: 0; letter-spacing: -0.03em; }
+h2 { font-size: 1.5rem; margin: 2.5rem 0 0.75rem; display: flex; align-items: center; gap: 0.6rem; }
+h3 { font-family: var(--body); font-weight: 700; font-size: 1.0625rem; letter-spacing: 0; margin: 0; }
+p { margin: 0 0 1rem; }
+small, .muted { color: var(--ink-muted); }
+
+/* Header: the mark, your name, a one-line status, and the bracketed nav of the old web. */
+.masthead { display: flex; align-items: center; gap: 1rem; }
+.masthead svg { flex: none; }
+.tagline { margin: 0.25rem 0 0; color: var(--ink-muted); }
+/* [ Home | Research | … ]: brackets are drawn here, so they wrap together with the links on a phone. */
+nav { margin: 1.5rem 0 0; font-weight: 700; letter-spacing: 0.02em; display: flex; flex-wrap: wrap; align-items: baseline; column-gap: 0.3rem; row-gap: 0.25rem; }
+nav::before { content: "["; }
+nav::after { content: "]"; }
+nav a { text-decoration: none; }
+nav a:hover, nav a[aria-current="page"] { text-decoration: underline; }
+nav .sep { color: var(--ink-muted); padding: 0 0.15rem; }
+
+hr { border: 0; border-top: 1.5px dashed var(--ink-muted); margin: 2rem 0; }
+
+/* Lists of dated things: what's new, notes, publications. */
+.dated { list-style: none; padding: 0; margin: 0; }
+.dated li { display: grid; grid-template-columns: 6.5rem 1fr; gap: 0.75rem; padding: 0.35rem 0; }
+.dated time { color: var(--ink-muted); font-variant-numeric: tabular-nums; }
+/* About: contact, same two columns, a label instead of a date. */
+.dated .label { color: var(--ink-muted); }
+.credit { margin-top: 2.5rem; font-size: 0.875rem; color: var(--ink-muted); }
+@media (max-width: 30rem) { .dated li { grid-template-columns: 1fr; gap: 0; } }
+
+.pub { padding: 0.75rem 0; border-bottom: 1px solid var(--line); }
+.pub:last-child { border-bottom: 0; }
+.pub .title { font-weight: 700; }
+.pub .links a { margin-right: 0.75rem; font-size: 0.9375rem; }
+.pub .links { display: flex; flex-wrap: wrap; align-items: baseline; column-gap: 0.75rem; }
+.pub .links a { margin-right: 0; }
+/* BibTeX, opened in place with <details>: no JavaScript. */
+details { font-size: 0.9375rem; }
+summary { cursor: pointer; color: var(--red-deep); text-decoration: underline; text-underline-offset: 0.15em; list-style: none; }
+summary::-webkit-details-marker { display: none; }
+details[open] { flex-basis: 100%; }
+details pre { background: var(--paper-raised); padding: 0.75rem; overflow-x: auto; font-size: 0.8125rem; line-height: 1.5; margin: 0.5rem 0 0; }
+details pre code { background: none; padding: 0; }
+/* Research: topic filter. Radios stay in the tab order but out of sight; their labels are the buttons. */
+.topic-radio { position: absolute; opacity: 0; width: 1px; height: 1px; }
+.topic-filter { margin: 0.5rem 0 0.5rem; color: var(--ink-muted); }
+.topic-filter label { cursor: pointer; color: var(--red-deep); text-underline-offset: 0.15em; }
+.topic-filter label:hover { color: var(--ink); }
+.topic-filter .sep { padding: 0 0.5rem; }
+h3.year { font-family: var(--display); font-weight: 400; color: var(--ink-muted); margin: 1.5rem 0 0; }
+.projects h3 { margin-top: 1.25rem; }
+h1 + .projects, h1 + p { margin-top: 0.75rem; }
+.sitename { color: inherit; text-decoration: none; font-family: var(--display); font-size: 1.25rem; letter-spacing: -0.02em; }
+.placeholder { background: var(--paper-raised); padding: 0 0.25rem; }
+
+/* A raised panel, separated by tone, never by shadow. */
+.panel { background: var(--paper-raised); padding: 1rem; }
+
+/* Footer: last updated and a few links. */
+/* Home: the intro paragraph, justified (hyphenation keeps the word gaps even). */
+.intro { margin-top: 2rem; text-align: justify; hyphens: auto; }
+
+/* About: the portrait (background removed, 320 px for sharp screens) sits beside the first paragraphs. */
+.portrait { float: right; width: 160px; height: auto; margin: 0 0 1rem 1.5rem; }
+@media (max-width: 30rem) { .portrait { width: 120px; margin-left: 1rem; } }
+
+footer { margin-top: 3rem; font-size: 0.875rem; color: var(--ink-muted); }
+footer .code-link svg { fill: currentColor; vertical-align: -0.2em; }
+footer .code-link + .code-link { margin-left: 0.5em; }
+
+/* Reading view for notes. */
+article { max-width: 36rem; }
+article .meta { color: var(--ink-muted); margin: 0.5rem 0 2rem; }
+article p { font-size: 1.125rem; line-height: 1.7; }
+article h2 { font-size: 1.25rem; }
+article li { font-size: 1.125rem; line-height: 1.7; }
+article h3 { margin: 1.5rem 0 0.25rem; }
+blockquote { margin: 1.5rem 0; padding-left: 1rem; border-left: 4px solid var(--red); color: var(--ink-muted); }
+code { font-size: 0.9em; background: var(--paper-raised); padding: 0 0.2em; }
+
+/* Floating Suprematist forms, in the right margin on wide screens only (never behind text). */
+.forms { display: none; }
+@media (min-width: 68rem) {
+  .forms { display: block; position: absolute; top: 5rem; left: 100%; margin-left: 2rem; pointer-events: none; }
+}
+
+/* ── Icon animations: icons only, once on load or on hover. Nothing loops. ── */
+
+/* Section icons drift a few degrees into place; a hovered heading link tilts its icon. */
+.icon { flex: none; transform-box: fill-box; transform-origin: center; animation: settle 500ms ease-out both; }
+.icon.disc { animation-name: drop; }
+@keyframes settle { from { transform: rotate(-25deg) translateY(-4px); opacity: 0; } to { transform: rotate(0); opacity: 1; } }
+@keyframes drop { from { transform: translateY(-10px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+h2 a { color: inherit; text-decoration: none; }
+h2:hover .icon { animation: wobble 400ms ease-in-out; }
+@keyframes wobble { 0%, 100% { transform: rotate(0); } 35% { transform: rotate(-14deg); } 70% { transform: rotate(8deg); } }
+
+/* The floating forms settle once too. Each form sits in an animated <g>, so the shape keeps its own tilt. */
+.forms g { transform-box: fill-box; transform-origin: center; animation: settle 900ms ease-out both; }
+.forms g:nth-child(2) { animation-delay: 120ms; }
+.forms g:nth-child(3) { animation-delay: 240ms; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
