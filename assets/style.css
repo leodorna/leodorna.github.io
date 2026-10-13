@@ -121,7 +121,9 @@ h1 + .projects, h1 + p { margin-top: 0.75rem; }
 
 /* Footer: last updated and a few links. */
 /* Home: the intro paragraph, justified (hyphenation keeps the word gaps even). */
-.intro { margin-top: 2rem; text-align: justify; hyphens: auto; }
+/* Home: the intro, slightly larger; justified, except on phones where the narrow column would stretch the gaps. */
+.intro { margin: 2.25rem 0 0; font-size: 1.125rem; line-height: 1.65; text-align: justify; hyphens: auto; }
+@media (max-width: 30rem) { .intro { text-align: left; } }
 
 /* About: the portrait (background removed, 320 px for sharp screens) sits beside the first paragraphs. */
 .portrait { float: right; width: 160px; height: auto; margin: 0 0 1rem 1.5rem; }
